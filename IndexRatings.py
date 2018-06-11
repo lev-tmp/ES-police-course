@@ -4,7 +4,7 @@ import elasticsearch
 from elasticsearch import helpers
 
 def readMovies():
-    csvfile = open('movies.csv', 'r')
+    csvfile = open('ml-latest-small/movies.csv', 'r')
 
     reader = csv.DictReader( csvfile )
 
@@ -16,7 +16,7 @@ def readMovies():
     return titleLookup
 
 def readRatings():
-    csvfile = open('ratings.csv', 'r')
+    csvfile = open('ml-latest-small/ratings.csv', 'r')
 
     titleLookup = readMovies()
 
@@ -31,8 +31,8 @@ def readRatings():
         yield rating
 
 
-es = elasticsearch.Elasticsearch('http://elastic:changeme@192.169.33.9:9200')
+es = elasticsearch.Elasticsearch()
 
-#es.indices.delete(index="ratings",ignore=404)
+es.indices.delete(index="ratings",ignore=404)
 deque(helpers.parallel_bulk(es,readRatings(),index="ratings",doc_type="rating"), maxlen=0)
 es.indices.refresh()

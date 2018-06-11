@@ -1,7 +1,7 @@
 import csv
 import re
 
-csvfile = open('movies.csv', 'r')
+csvfile = open('ml-latest-small/movies.csv', 'r')
 
 reader = csv.DictReader( csvfile )
 for movie in reader:
