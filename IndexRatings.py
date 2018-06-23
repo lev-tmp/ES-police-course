@@ -3,8 +3,11 @@ from collections import deque
 import elasticsearch
 from elasticsearch import helpers
 
+MOVIE_CSV = 'ml-latest-small/movies.csv'
+RATING_CSV = 'ml-latest-small/ratings.csv'
+
 def readMovies():
-    csvfile = open('ml-latest-small/movies.csv', 'r')
+    csvfile = open(MOVIE_CSV, 'r')
 
     reader = csv.DictReader( csvfile )
 
@@ -16,7 +19,7 @@ def readMovies():
     return titleLookup
 
 def readRatings():
-    csvfile = open('ml-latest-small/ratings.csv', 'r')
+    csvfile = open(RATING_CSV, 'r')
 
     titleLookup = readMovies()
 
